@@ -1,10 +1,13 @@
 // halaman untuk mengatur homepage
 import "../../public/style/app.css";
 import FormAdd from "../component/formaddexpense";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ExpenseTrack from "../component/showexpense";
 
 function HomePage() {
+  // untuk isi state data yang dikirim dari komponen add form
+
+  const [data, setData] = useState([]);
   // untuk menangani muncul form tambah
 
   const [showForm, setShowForm] = useState(false);
@@ -12,6 +15,21 @@ function HomePage() {
   const handleClickAdd = () => {
     setShowForm(!showForm);
   };
+
+  useEffect(() => {
+    const storedExpenses =
+      JSON.parse(localStorage.getItem("Pengeluaran")) || [];
+    setData(storedExpenses);
+  }, [data]);
+
+  // useEffect(() => {
+  //   localStorage.clear();
+  // }, []);
+
+  // clear local storage
+
+  // handle lifting dari komponen yang sekarang di tuju
+
   return (
     <>
       <div className="container wrapper mt-5 py-4 rounded">
@@ -28,7 +46,7 @@ function HomePage() {
             {showForm && <FormAdd />}
           </div>
         </div>
-        <ExpenseTrack />
+        <ExpenseTrack receiveData={data} />
       </div>
     </>
   );
