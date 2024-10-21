@@ -3,6 +3,18 @@ import "../../public/style/app.css";
 import { useState } from "react";
 
 function FormAdd() {
+  // buat function untuk khusus local storage
+  //   Handle input onChange
+  const [titleInput, setTitleInput] = useState("");
+  const [priceInput, setPriceInput] = useState("");
+  const [dateInput, setDateInput] = useState("");
+  // Handle Button Display
+
+  const addToLocalStorage = (value) => {
+    localStorage.setItem("Pengeluaran", JSON.stringify(value));
+  };
+
+  const addExpenses = () => {};
   return (
     <>
       <div className="col-11 new-expense__controls mt-5 mb-3 px-4 py-4 mx-auto">
