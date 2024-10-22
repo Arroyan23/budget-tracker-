@@ -19,6 +19,10 @@ function FormAdd(props) {
     localStorage.setItem("Pengeluaran", JSON.stringify(existingStorage));
   };
 
+  const confirmRemoveStorage = (value) => {
+    localStorage.setItem("Pengeluaran", JSON.stringify(value));
+  };
+
   const addExpenses = (event) => {
     event.preventDefault();
     if (titleInput && dateInput && priceInput.trim()) {

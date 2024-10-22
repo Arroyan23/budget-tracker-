@@ -1,6 +1,23 @@
 // untuk menampilkan pengeluaran datanya
 
+import { useEffect, useState } from "react";
+
 function ExpenseTrack(props) {
+  // untuk mengatur kalau ada yang berubah dari deleteItem
+  const [deleteItem, setDeleteItem] = useState(null);
+  // useEffect(() => {
+  //   console.log("Halaman Di refresh");
+  // }, [deleteItem]);
+
+  const handleDeleteStorage = (value) => {
+    localStorage.setItem("Pengeluaran", JSON.stringify(value));
+  };
+
+  const handleDelete = (index) => {
+    const removedToDo = index.filter((_, idx) => index !== idx);
+    handleDeleteStorage(removedToDo);
+    setDeleteItem(removedToDo);
+  };
   return (
     <>
       {/* {props.receiveData.map((element, index) => {
@@ -19,8 +36,9 @@ function ExpenseTrack(props) {
                   <button
                     type="button"
                     className="expense-category btn px-lg-3 py-3 ml-lg-3"
+                    onClick={() => handleDelete(index)}
                   >
-                    Category
+                    Delete
                   </button>
                 </div>
                 <div className="col-9 col-sm-7 col-md-8 d-flex justify-content-center flex-column py-2">

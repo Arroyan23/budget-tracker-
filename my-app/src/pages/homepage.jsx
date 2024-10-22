@@ -16,11 +16,20 @@ function HomePage() {
     setShowForm(!showForm);
   };
 
+  const handleData = (value) => {
+    setData((prevData) => {
+      const newData = [...prevData, value];
+      localStorage.setItem("Pengeluaran", JSON.stringify(newData)); // Update localStorage
+      return newData;
+    });
+  };
+
   useEffect(() => {
     const storedExpenses =
       JSON.parse(localStorage.getItem("Pengeluaran")) || [];
+
     setData(storedExpenses);
-  }, [data]);
+  }, []);
 
   // useEffect(() => {
   //   localStorage.clear();
@@ -43,7 +52,7 @@ function HomePage() {
             >
               Add Expense
             </button>
-            {showForm && <FormAdd />}
+            {showForm && <FormAdd sendDataExpenses={handleData} />}
           </div>
         </div>
         <ExpenseTrack receiveData={data} />
